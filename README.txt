@@ -26,6 +26,9 @@ so my config would be ffmpeg -i C:/Users/[username]/Downloads/BADAPPLE.mp4 -vf f
 
 Step 2.
 
+now that we have the images, we need to convert them to ascii. im not going in detail now,
+but most likely will give an in depth look at the code.
+
 convert images to ascii using ascii.py
 
 change file paths to be appropriate
@@ -33,4 +36,19 @@ or use the values i provided in ascii.py
 dont touch filenum as it allows us to save the files without overwriting
 
 only touch the quoted areas in fileName at lines 33 and 34
-the cols and scale are setup to take up the IDLE window (Width = 80, Height = 60)
+the cols and scale are setup to take up the IDLE window (Width = 118, Height = 59)
+
+step 3.
+
+using badappledisplay.py, we can read these text files and print them to the console.
+time.sleep should be 0.014999... to get the program to run exactly 219 seconds (Length of the original video)
+
+step 4.
+
+run in python IDLE
+i wrote this in 3.9.1 so it might break in the future
+
+sources:
+python IDLE: python.org
+ascii.py source code: https://www.geeksforgeeks.org/converting-image-ascii-image-python/
+ffmpeg: ffmpeg.org/
