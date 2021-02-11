@@ -6,7 +6,7 @@ ffmpeg
 
 python IDE (i used the default python IDLE)
 
-Rouhly 100 MB of free space
+Rouhly 200 MB of free space
 
 Step 1.
 
