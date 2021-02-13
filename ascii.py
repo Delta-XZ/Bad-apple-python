@@ -32,7 +32,7 @@ def getAverageL(image):
 def covertImageToAscii(fileName, cols, scale, moreLevels):
     fileName = "G:/BADAPPLE/PNG/" + str(filenum)
     fileName = fileName + ".png"
-    cols = int(85)
+    cols = int(93)
     scale = 1
     moreLevels = 1
     """ 
@@ -55,7 +55,7 @@ def covertImageToAscii(fileName, cols, scale, moreLevels):
     h = w/scale 
   
     # compute number of rows 
-    rows = 64 
+    rows = 70
       
     print("cols: %d, rows: %d" % (cols, rows)) 
     print("tile dims: %d x %d" % (w, h)) 
