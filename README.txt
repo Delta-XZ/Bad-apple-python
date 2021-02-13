@@ -1,4 +1,4 @@
-This file will show you how to re create [https://youtu.be/DWOTCUtOBIY]
+how to turn bad apple, or any other video, into ascii art that runs off of the python output
 
 Required applications:
 
