@@ -5,6 +5,7 @@
 5. enjoy
 
 sources:
+fpstimer library: https://pypi.org/project/fpstimer/
 python: https://www.python.org/
 ffmpeg: https://ffmpeg.org/
 base for ascii script: https://www.geeksforgeeks.org/converting-image-ascii-image-python/
