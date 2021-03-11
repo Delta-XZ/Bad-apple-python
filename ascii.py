@@ -1,19 +1,74 @@
-
 # Python code to convert an image to ASCII image. 
-import sys, random, argparse 
+# importing all the libraries we need
+import sys, random, argparse, math, os
 import numpy as np 
-import math 
-  
-from PIL import Image 
-  
+from PIL import Image
+import zipfile38 as zipfile
+print("end file path with a / otherwise the program will crash")
+print("if you run into issues, refer to github/issue or read the README.txt included")
+print("Also you will need folders PNG_15 for LOWQ(128x96)")
+print("PNG_30 For ASCII (94x70) and SCAN(94x70)")
+print("and PNG_60 for HQ versions.")
+print("Assuming these folders exist, you can run this file, or CTRL+C to exit it now.\n")
+print("Also store the image source folders in the parent folder /BADAPPLE/ otherwise, Crash.\n")
+pathtofiles = input("specify BADAPPLE folders location(example. C:/BADAPPLE/ or D:/some/folders/BADAPPLE/): ")
+buff_pathtofiles = pathtofiles
+
+try:
+    os.makedirs(pathtofiles + str("ASCII/"))
+except:
+    print("Folder ASCII Exists, skipping")
+try:
+    os.makedirs(pathtofiles + str("ASCII_HQ/"))
+except:
+    print("Folder ASCII_HQ Exists, skipping")
+try:
+    os.makedirs(pathtofiles + str("LOWQ/"))
+except:
+    print("Folder LOWQ Exists, skipping")
+try:
+    os.makedirs(pathtofiles + str("SCAN/"))
+except:
+    print("Folder SCAN Exists, skipping")
+
+#checks for png files
+
+if os.path.isdir(pathtofiles) == True:
+    print("Parent Folder Exists")
+
+elif os.path.isdir(pathtofiles) == False:
+    print("Parent Folder is the wrong name or missing, try again")
+    sys.exit()
+
+if os.path.isdir(pathtofiles + str("PNG_15/")) == True:
+    print("PNG_15 Folder Exists")
+    
+elif os.path.isfile(pathtofiles + str("PNG_15/")) == False:
+    print("PNG_15 Doesn't exist,extract the files to /BADAPPLE/ and try again")
+    sys.exit()
+    
+if os.path.isdir(pathtofiles + str("PNG_30/")) == True:
+    print("PNG_30 Exists")
+    
+elif os.path.isdir(pathtofiles + str("PNG_30/")) == False:
+    print("PNG_30 Doesn't exist, extract the files to /BADAPPLE/ and try again")
+    sys.exit()
+    
+if os.path.isdir(pathtofiles + str("PNG_60/")) == True:
+    print("PNG_60 Exists")
+    
+elif os.path.isdir(pathtofiles + str("PNG_60/")) == False:
+    print("PNG_60 Doesn't exist, extract the files to /BADAPPLE/ and try again")
+    sys.exit()
+    
 # gray scale level values from:  
 # http://paulbourke.net/dataformats/asciiart/ 
-  
+
 # 70 levels of gray 
 gscale1 = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,\"^`'. "
   
 # 10 levels of gray 
-gscale2 = '@%#*+=-:. '
+gscale2 = '#####     '
   
 def getAverageL(image): 
   
@@ -30,11 +85,11 @@ def getAverageL(image):
     return np.average(im.reshape(w*h)) 
   
 def covertImageToAscii(fileName, cols, scale, moreLevels):
-    fileName = "G:/BADAPPLE/PNG/" + str(filenum)
+    fileName = PNG_Source + str(filenum)
     fileName = fileName + ".png"
-    cols = int(93)
+    cols = int(usr_width)
     scale = 1
-    moreLevels = 1
+    moreLevels = int(detail)
     """ 
     Given Image and dims (rows, cols) returns an m*n list of Images  
     """
@@ -55,7 +110,7 @@ def covertImageToAscii(fileName, cols, scale, moreLevels):
     h = w/scale 
   
     # compute number of rows 
-    rows = 70
+    rows = int(usr_height)
       
     print("cols: %d, rows: %d" % (cols, rows)) 
     print("tile dims: %d x %d" % (w, h)) 
@@ -63,7 +118,7 @@ def covertImageToAscii(fileName, cols, scale, moreLevels):
     # check if image size is too small 
     if cols > W or rows > H: 
         print("Image too small for specified cols!") 
-        exit(0) 
+        exit() 
   
     # ascii image is a list of character strings 
     aimg = [] 
@@ -99,7 +154,7 @@ def covertImageToAscii(fileName, cols, scale, moreLevels):
             if moreLevels: 
                 gsval = gscale1[int((avg*69)/255)] 
             else: 
-                gsval = gscale2[int((avg*9)/255)] 
+                gsval = gscale2[int((avg*int(amount))/255)] 
   
             # append ascii char to string 
             aimg[j] += gsval 
@@ -125,7 +180,7 @@ def main():
     imgFile = args.imgFile 
   
     # set output file 
-    outFile = "G:/BADAPPLE/ASCII/" + str(filenum)
+    outFile = directory + str(filenum)
     outFile = outFile + ".txt"
     if args.outFile: 
         outFile = args.outFile 
@@ -137,7 +192,7 @@ def main():
         scale = float(args.scale) 
   
     # set cols 
-    cols = 80
+    cols = 64
     if args.cols: 
         cols = int(args.cols) 
   
@@ -146,7 +201,7 @@ def main():
     aimg = covertImageToAscii(imgFile, cols, scale, args.moreLevels) 
   
     # open file 
-    f = open(outFile, 'w') 
+    f = open(outFile, 'w', encoding="utf-8")
   
     # write to file 
     for row in aimg: 
@@ -156,9 +211,70 @@ def main():
     f.close() 
     print("ASCII art written to %s" % outFile) 
   
-# call main
+# Load relevant values
 filenum = 1
-for i in range(6671):
+# set resolution
+usr_width = int(94)
+usr_height = int(70)
+# call gscale2
+detail = 0
+gscale2 = '#####     '
+amount = 9
+# call files
+directory = pathtofiles
+PNG_Source = pathtofiles + str ("PNG_30/")
+directory = directory + str("ASCII/")
+# call main()
+for i in range(6571):
+    str(filenum)
+    main()
+    filenum +=1
+# load values for ASCII_HQ
+filenum = 1
+# set resolution
+usr_width = int(120)
+usr_height = int(90)
+# call gscale1
+detail = 1
+# call files
+directory = pathtofiles
+PNG_Source = pathtofiles + str ("PNG_60/")
+directory = directory + str("ASCII_HQ/")
+for i in range(13141):
+    str(filenum)
+    main()
+    filenum +=1
+
+filenum = 1
+# set resolution
+usr_width = int(94)
+usr_height = int(70)
+# call gscale1
+detail = 0
+gscale2 = '_____     '
+amount = 9
+# call files
+directory = pathtofiles
+PNG_Source = pathtofiles + str ("PNG_30/")
+directory = directory + str("SCAN/")
+for i in range(6571):
+    str(filenum)
+    main()
+    filenum +=1
+
+filenum = 1
+# set resolution
+usr_width = int(60)
+usr_height = int(45)
+# call gscale1
+detail = 0
+gscale2 = '█▓▒░  '
+amount = 5
+# call files
+directory = pathtofiles
+PNG_Source = pathtofiles + str ("PNG_15/")
+directory = directory + str("LOWQ/")
+for i in range(3285):
     str(filenum)
     main()
     filenum +=1
