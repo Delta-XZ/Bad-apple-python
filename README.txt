@@ -1,19 +1,5 @@
 how to turn bad apple, or any other video, into ascii art that runs off of the python output
 
-Required applications:
-
-ffmpeg
-
-python IDE (i used the default python IDLE)
-
-Rouhly 200 MB of free space
-
-Exrtract to Disk:/[] so you only need to specify Disk:/BADAPPLE/
-#####################################################################
-#                                                                   #
-#  files at https://mega.nz/folder/3w8EUThb#sJswW4VwdlJXjdHVRTIj6g  #
-#                                                                   #
-#####################################################################
 
 Step 1.
 
